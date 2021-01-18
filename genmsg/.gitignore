@@ -1,0 +1,23 @@
+# directories that never contain source code
+bin/
+doc/
+lib/
+
+# links that never contain source code
+share
+
+*.tank
+*.depend
+*.o
+*.d
+
+/man
+
+# QT-Creator
+*.config
+*.creator
+*.creator.user
+*.files
+*.includes
+/testClass.cpp
+/testClass.h
