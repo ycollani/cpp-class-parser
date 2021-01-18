@@ -10,7 +10,7 @@ export WITH_GCOV   := @coverage@
 export DESTDIR     ?= $(PREFIX)
 
 $(info /-------------------------------------------------)
-$(info | REPO:         rcl-common)
+$(info | REPO:         rcl-genmsg)
 $(info | PROJECT:      $(or $(filter undefined, $(origin PROJECT)),      $(PROJECT)))
 $(info | PREFIX:       $(or $(filter undefined, $(origin PREFIX)),       $(PREFIX)))
 $(info | DESTDIR:      $(or $(filter undefined, $(origin DESTDIR)),      $(DESTDIR)))
