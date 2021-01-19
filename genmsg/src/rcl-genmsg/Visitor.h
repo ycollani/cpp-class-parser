@@ -30,9 +30,13 @@
 #ifndef VISITOR_H_
 #define VISITOR_H_
 
+#include <iostream>
+#include "../rcl-genmsg/ClassInformation.h"
+
+
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wcomment"
-
+#pragma GCC system_header
 #include "clang/Driver/Options.h"
 #include "clang/AST/AST.h"
 #include "clang/AST/ASTContext.h"
@@ -47,8 +51,6 @@
 
 #pragma GCC diagnostic pop
 
-#include <iostream>
-#include "../rcl-genmsg/ClassInformation.h"
 
 namespace VC {
 namespace MDSD {

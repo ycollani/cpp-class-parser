@@ -30,16 +30,16 @@
 #ifndef FRONTENDACTION_H_
 #define FRONTENDACTION_H_
 
+#include <iostream>
+#include <map>
+
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wcomment"
-
+#pragma GCC system_header
 #include "clang/Frontend/FrontendActions.h"
 #include "clang/AST/RecursiveASTVisitor.h"
 
 #pragma GCC diagnostic pop
-
-#include <iostream>
-#include <map>
 
 
 namespace VC {
