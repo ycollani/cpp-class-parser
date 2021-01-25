@@ -74,8 +74,8 @@ std::vector<CompileCommand> StaticCompilationDatabase::getCompileCommands(String
 
     std::vector< std::string > CommandLine;
     CommandLine.push_back("/usr/bin/g++");
-    CommandLine.push_back("-I/usr/include/c++/5");
-    CommandLine.push_back("-I/usr/include/c++/5");
+    CommandLine.push_back("-I/usr/include/c++/7");
+    CommandLine.push_back("-I/usr/include/c++/7");
     CommandLine.push_back("-I/usr/include/x86_64-linux-gnu/c++/7/");
     CommandLine.push_back("-I/usr/lib/gcc/x86_64-linux-gnu/7/include/");
     const char* currentDir=getenv("PWD");
