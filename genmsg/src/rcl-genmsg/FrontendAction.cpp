@@ -57,6 +57,7 @@ FrontendAction::~FrontendAction()
 
 std::unique_ptr<clang::ASTConsumer> FrontendAction::CreateASTConsumer(clang::CompilerInstance &CI, llvm::StringRef file)
 {
+    CI.getDiagnostics().setClient(new clang::IgnoringDiagConsumer());
     return std::unique_ptr<clang::ASTConsumer> (new VC::MDSD::ASTConsumer(&CI, &classMap, &typedefInformation)); // pass CI pointer to ASTConsumer
 }
 

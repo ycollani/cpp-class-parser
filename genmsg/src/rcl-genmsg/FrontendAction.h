@@ -50,11 +50,8 @@ class FrontendAction : public clang::ASTFrontendAction
 
 public:
     virtual ~FrontendAction();
-    virtual std::unique_ptr<clang::ASTConsumer> CreateASTConsumer(clang::CompilerInstance &CI, llvm::StringRef file);
-
+    virtual std::unique_ptr<clang::ASTConsumer> CreateASTConsumer(clang::CompilerInstance &CI, llvm::StringRef file) override;
 };
-
-
 
 }  // namespace MDSD
 }  // namespace RB
