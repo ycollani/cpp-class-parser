@@ -89,6 +89,7 @@ protected:
 
 	std::vector<std::string>       baseClasses_;
 	std::vector<MemberInformation> members_;
+	std::vector<std::string>       methods_;
 
 	bool        hasTrivialDefaultConstructor_    = false;
 	bool        hasNonTrivialDefaultConstructor_ = false;
@@ -103,8 +104,9 @@ public:
 	void setNamespace    (const std::string &_namespaceName) { namespaceName_ = _namespaceName; }
 	void setFileName     (const std::string &_fileName)      { fileName_ = _fileName; }
 	void setDirName      (const std::string &_dirName)       { dirName_ = _dirName; }
-	void insertBaseClass (const std::string _baseClass) { baseClasses_.push_back (_baseClass); }
-	void insertMember    (const MemberInformation _m)  { members_.push_back (_m); }
+	void insertBaseClass (const std::string &_baseClass) { baseClasses_.push_back (_baseClass); }
+	void insertMember    (const MemberInformation &_m)  { members_.push_back (_m); }
+	void insertMethod    (const std::string &_method) { methods_.push_back (_method); }
 
 	void setHasTrivialDefaultConstructor (bool flag)    { hasTrivialDefaultConstructor_ = flag; }
 	void setHasNonTrivialDefaultConstructor (bool flag) { hasNonTrivialDefaultConstructor_ = flag; }
@@ -120,6 +122,9 @@ public:
 
 	size_t                   getNumMembers (void)      const { return members_.size(); }
 	const MemberInformation& getMember     (int index) const { return members_[index]; }
+
+	size_t             getNumMethods () const { return methods_.size(); }
+	const std::string& getMethod (int index) const { return methods_[index]; }
 
 	bool hasTrivialDefaultConstructor (void)    const { return hasTrivialDefaultConstructor_ ; }
 	bool hasNonTrivialDefaultConstructor (void) const { return hasNonTrivialDefaultConstructor_; }

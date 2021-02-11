@@ -115,9 +115,9 @@ bool Visitor::VisitCXXRecordDecl(clang::CXXRecordDecl *decl)
     }
 
 
-    std::string canonicalName = Declaration->getCanonicalDecl()->getQualifiedNameAsString() ;
-
-    //std::cout << "non class declaration: " << canonicalName << std::endl;
+//    std::string canonicalName = Declaration->getCanonicalDecl()->getQualifiedNameAsString() ;
+//
+//    std::cout << "non class declaration: " << canonicalName << std::endl;
 
 
 
@@ -132,6 +132,9 @@ bool Visitor::VisitCXXRecordDecl(clang::CXXRecordDecl *decl)
 
 void Visitor::processClassDeclration (clang::CXXRecordDecl *Declaration, clang::SourceManager &sourceManager)
 {
+    if (classMap->find(Declaration->getQualifiedNameAsString()) != classMap->end() )
+        return;
+
     ClassInformation currentClass (Declaration->getQualifiedNameAsString());
 
     clang::SourceLocation loc = Declaration->getLocation();
@@ -229,6 +232,14 @@ void Visitor::processClassDeclration (clang::CXXRecordDecl *Declaration, clang::
 //              if (record != classMap->end())
 //                  std::cout << "    in classMap" << std::endl;
 //          }
+    }
+
+    for (auto it = Declaration->method_begin(); it != Declaration->method_end(); ++it)
+    {
+        const clang::CXXMethodDecl *canonicalDecl = it->getCanonicalDecl();
+
+        //std::cout << "Class: " << Declaration->getQualifiedNameAsString() << "  -- Method: " << canonicalDecl->getNameAsString() << std::endl;
+        currentClass.insertMethod (canonicalDecl->getNameAsString());
     }
 
     (*classMap)[Declaration->getQualifiedNameAsString()] = currentClass;
