@@ -16,8 +16,8 @@ AC_ARG_ENABLE([lls],
 AC_ARG_ENABLE([activeshuttle],
               AS_HELP_STRING([--enable-activeshuttle], [enable project "activeshuttle"]))
 
-AC_ARG_ENABLE([vms],
-              AS_HELP_STRING([--enable-vms], [enable project "vms"]))
+AC_ARG_ENABLE([activeshuttle_dualrcu],
+              AS_HELP_STRING([--enable-activeshuttle_dualrcu], [enable project "activeshuttle_dualrcu"]))
 
 AC_ARG_ENABLE([devel_activeshuttle],
               AS_HELP_STRING([--enable-devel_activeshuttle], [enable project "devel_activeshuttle"]))
@@ -26,10 +26,10 @@ AC_ARG_ENABLE([devel_activeshuttle],
 
 NUMPROJ=0
 
-AS_IF([test "x$enable_lls"                 = "xyes"], [NUMPROJ=`expr $NUMPROJ + 1`])
-AS_IF([test "x$enable_activeshuttle"       = "xyes"], [NUMPROJ=`expr $NUMPROJ + 1`])
-AS_IF([test "x$enable_devel_activeshuttle" = "xyes"], [NUMPROJ=`expr $NUMPROJ + 1`])
-AS_IF([test "x$enable_vms"                 = "xyes"], [NUMPROJ=`expr $NUMPROJ + 1`])
+AS_IF([test "x$enable_lls"                   = "xyes"], [NUMPROJ=`expr $NUMPROJ + 1`])
+AS_IF([test "x$enable_activeshuttle"         = "xyes"], [NUMPROJ=`expr $NUMPROJ + 1`])
+AS_IF([test "x$enable_activeshuttle_dualrcu" = "xyes"], [NUMPROJ=`expr $NUMPROJ + 1`])
+AS_IF([test "x$enable_devel_activeshuttle"   = "xyes"], [NUMPROJ=`expr $NUMPROJ + 1`])
 
 AS_IF([test "$NUMPROJ" -lt "1"], [AC_MSG_ERROR([no project enabled])])
 AS_IF([test "$NUMPROJ" -gt "1"], [AC_MSG_ERROR([more than one project enabled])])
@@ -37,10 +37,10 @@ AS_IF([test "$NUMPROJ" -gt "1"], [AC_MSG_ERROR([more than one project enabled])]
 # export selected project as variable
 
 project=undefined
-AS_IF([test "x$enable_lls"                 = "xyes"], project=lls)
-AS_IF([test "x$enable_activeshuttle"       = "xyes"], project=activeshuttle)
-AS_IF([test "x$enable_vms"                 = "xyes"], project=vms)
-AS_IF([test "x$enable_devel_activeshuttle" = "xyes"], project=devel-activeshuttle)
+AS_IF([test "x$enable_lls"                   = "xyes"], project=lls)
+AS_IF([test "x$enable_activeshuttle"         = "xyes"], project=activeshuttle)
+AS_IF([test "x$enable_activeshuttle_dualrcu" = "xyes"], project=activeshuttle-dualrcu)
+AS_IF([test "x$enable_devel_activeshuttle"   = "xyes"], project=devel-activeshuttle)
 
 ##########
 #
@@ -50,21 +50,23 @@ AC_ARG_WITH([tests],
             AS_HELP_STRING([--with-tests], [enable building tests]))
 
 tests=0
-AS_IF([test "x$with_tests" = "xyes"], tests=1)
-
 AC_ARG_WITH([debug],
             AS_HELP_STRING([--with-debug], [compile with debug code]))
-debug=0
-AS_IF([test "x$with_debug" = "xyes"], debug=1)
+AS_IF([test "x$with_tests" = "xyes"], tests=1)
 
+debug=0
 AC_ARG_WITH([licensing],
             AS_HELP_STRING([--without-licensing], [compile without licensing]))
-licensing=1
-AS_IF([test "x$with_licensing" = "xno"], licensing=0)
+AS_IF([test "x$with_debug" = "xyes"], debug=1)
 
+licensing=1
 AC_ARG_WITH([coverage],
             AS_HELP_STRING([--with-coverage], [compile with coverage]))
+AS_IF([test "x$with_licensing" = "xno"], licensing=0)
+
 coverage=0
+AC_ARG_WITH([coverage],
+            AS_HELP_STRING([--with-coverage], [compile with coverage]))
 AS_IF([test "x$with_coverage" = "xyes"], coverage=1)
 
 ##########
@@ -76,4 +78,5 @@ AC_SUBST(tests)
 AC_SUBST(debug)
 AC_SUBST(licensing)
 AC_SUBST(coverage)
+
 AC_OUTPUT()
