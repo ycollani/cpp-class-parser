@@ -27,37 +27,36 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifndef ASTCONSUMER_H_
+#define ASTCONSUMER_H_
 
-#include "rcl-genmsg/ASTConsumer.h"
+#include <string>
+
+#include "../cpp-class-parser/ClassInformation.h"
+#include "../cpp-class-parser/Visitor.h"
 
 namespace VC {
 namespace MDSD {
 
-// ========================================
-// ==
-// ========================================
-
-ASTConsumer::ASTConsumer(clang::CompilerInstance *CI, std::map<std::string, ClassInformation> *_classMap, TypedefInformation *_typedefInformation)
-: visitor(new Visitor(CI, _classMap, _typedefInformation)), // initialize the visitor
-  classMap { _classMap },
-  typedefInformation { _typedefInformation }
-{
-
-}
+class ASTConsumer : public clang::ASTConsumer {
+private:
+    VC::MDSD::Visitor                       *visitor = nullptr;
+    std::map<std::string, ClassInformation> *classMap;
+    TypedefInformation                      *typedefInformation;
 
 
-// ========================================
-// ==
-// ========================================
+public:
+    // override the constructor in order to pass CI
+    explicit ASTConsumer(clang::CompilerInstance *CI, std::map<std::string, ClassInformation> *_classMap, TypedefInformation *_typedefInformation);
 
-void ASTConsumer::HandleTranslationUnit(clang::ASTContext &Context) {
-    /* we can use ASTContext to get the TranslationUnitDecl, which is
-         a single Decl that collectively represents the entire source file */
-    visitor->TraverseDecl(Context.getTranslationUnitDecl());
-}
-
-
+    // override this to call our ExampleVisitor on the entire source file
+    virtual void HandleTranslationUnit(clang::ASTContext &Context);
+};
 
 
 }  // namespace MDSD
 }  // namespace RB
+
+
+
+#endif /* ASTCONSUMER_H_ */

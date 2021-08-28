@@ -27,36 +27,42 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef ASTCONSUMER_H_
-#define ASTCONSUMER_H_
+#ifndef SRC_CPP_CLASS_PARSER_COMPILERDATABASE_H_
+#define SRC_CPP_CLASS_PARSER_COMPILERDATABASE_H_
 
-#include <string>
+#include <iostream>
+#include "clang/Tooling/CompilationDatabase.h"
 
-#include "rcl-genmsg/ClassInformation.h"
-#include "rcl-genmsg/Visitor.h"
+namespace clang {
+namespace tooling {
 
-namespace VC {
-namespace MDSD {
-
-class ASTConsumer : public clang::ASTConsumer {
-private:
-    VC::MDSD::Visitor                       *visitor = nullptr;
-    std::map<std::string, ClassInformation> *classMap;
-    TypedefInformation                      *typedefInformation;
-
-
+class StaticCompilationDatabase : public CompilationDatabase {
 public:
-    // override the constructor in order to pass CI
-    explicit ASTConsumer(clang::CompilerInstance *CI, std::map<std::string, ClassInformation> *_classMap, TypedefInformation *_typedefInformation);
+    /// Returns all compile commands in which the specified file was
+    /// compiled.
+    ///
+    /// FIXME: Currently FilePath must be an absolute path inside the
+    /// source directory which does not have symlinks resolved.
+    std::vector<CompileCommand> getCompileCommands(StringRef FilePath) const override;
 
-    // override this to call our ExampleVisitor on the entire source file
-    virtual void HandleTranslationUnit(clang::ASTContext &Context);
+    /// Returns the list of all files available in the compilation database.
+    ///
+    /// These are the 'file' entries of the JSON objects.
+    std::vector<std::string> getAllFiles() const override;
+
+    /// Returns all compile commands for all the files in the compilation
+    /// database.
+    std::vector<CompileCommand> getAllCompileCommands() const override;
+
+    /// Constructs a static compilation database
+    StaticCompilationDatabase()
+    {
+        //std::cout << "Create static compilation database" << std::endl;
+    }
 };
 
-
-}  // namespace MDSD
-}  // namespace RB
-
+}  // namespace tooling
+}  // namespace clang
 
 
-#endif /* ASTCONSUMER_H_ */
+#endif /* SRC_CPP_CLASS_PARSER_COMPILERDATABASE_H_ */

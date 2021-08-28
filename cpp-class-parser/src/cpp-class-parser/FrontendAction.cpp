@@ -28,11 +28,12 @@
  */
 
 
-#include "rcl-genmsg/FrontendAction.h"
-#include "rcl-genmsg/ASTConsumer.h"
-#include "rcl-genmsg/ClassInformation.h"
+#include "../cpp-class-parser/FrontendAction.h"
+
 #include <map>
 #include <iostream>
+#include "../cpp-class-parser/ASTConsumer.h"
+#include "../cpp-class-parser/ClassInformation.h"
 
 
 std::map<std::string, VC::MDSD::ClassInformation> classMap;
