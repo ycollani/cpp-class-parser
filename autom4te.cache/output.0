@@ -632,7 +632,7 @@ ac_user_opts='
 enable_option_checking
 enable_lls
 enable_activeshuttle
-enable_activeshuttle_dualrcu
+enable_vms
 enable_devel_activeshuttle
 with_tests
 with_debug
@@ -1262,8 +1262,7 @@ Optional Features:
   --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
   --enable-lls            enable project "lls"
   --enable-activeshuttle  enable project "activeshuttle"
-  --enable-activeshuttle_dualrcu 
-                          enable project "activeshuttle_dualrcu"
+  --enable-vms            enable project "vms"
   --enable-devel_activeshuttle 
                           enable project "devel_activeshuttle"
 
@@ -1722,9 +1721,9 @@ if test "${enable_activeshuttle+set}" = set; then :
 fi
 
 
-@%:@ Check whether --enable-activeshuttle_dualrcu was given.
-if test "${enable_activeshuttle_dualrcu+set}" = set; then :
-  enableval=$enable_activeshuttle_dualrcu; 
+@%:@ Check whether --enable-vms was given.
+if test "${enable_vms+set}" = set; then :
+  enableval=$enable_vms; 
 fi
 
 
@@ -1738,16 +1737,16 @@ fi
 
 NUMPROJ=0
 
-if test "x$enable_lls"                   = "xyes"; then :
+if test "x$enable_lls"                 = "xyes"; then :
   NUMPROJ=`expr $NUMPROJ + 1`
 fi
-if test "x$enable_activeshuttle"         = "xyes"; then :
+if test "x$enable_activeshuttle"       = "xyes"; then :
   NUMPROJ=`expr $NUMPROJ + 1`
 fi
-if test "x$enable_activeshuttle_dualrcu" = "xyes"; then :
+if test "x$enable_devel_activeshuttle" = "xyes"; then :
   NUMPROJ=`expr $NUMPROJ + 1`
 fi
-if test "x$enable_devel_activeshuttle"   = "xyes"; then :
+if test "x$enable_vms"                 = "xyes"; then :
   NUMPROJ=`expr $NUMPROJ + 1`
 fi
 
@@ -1761,16 +1760,16 @@ fi
 # export selected project as variable
 
 project=undefined
-if test "x$enable_lls"                   = "xyes"; then :
+if test "x$enable_lls"                 = "xyes"; then :
   project=lls
 fi
-if test "x$enable_activeshuttle"         = "xyes"; then :
+if test "x$enable_activeshuttle"       = "xyes"; then :
   project=activeshuttle
 fi
-if test "x$enable_activeshuttle_dualrcu" = "xyes"; then :
-  project=activeshuttle-dualrcu
+if test "x$enable_vms"                 = "xyes"; then :
+  project=vms
 fi
-if test "x$enable_devel_activeshuttle"   = "xyes"; then :
+if test "x$enable_devel_activeshuttle" = "xyes"; then :
   project=devel-activeshuttle
 fi
 
@@ -1786,45 +1785,39 @@ fi
 
 
 tests=0
+if test "x$with_tests" = "xyes"; then :
+  tests=1
+fi
+
 
 @%:@ Check whether --with-debug was given.
 if test "${with_debug+set}" = set; then :
   withval=$with_debug; 
 fi
 
-if test "x$with_tests" = "xyes"; then :
-  tests=1
+debug=0
+if test "x$with_debug" = "xyes"; then :
+  debug=1
 fi
 
-debug=0
 
 @%:@ Check whether --with-licensing was given.
 if test "${with_licensing+set}" = set; then :
   withval=$with_licensing; 
 fi
 
-if test "x$with_debug" = "xyes"; then :
-  debug=1
-fi
-
 licensing=1
-
-@%:@ Check whether --with-coverage was given.
-if test "${with_coverage+set}" = set; then :
-  withval=$with_coverage; 
-fi
-
 if test "x$with_licensing" = "xno"; then :
   licensing=0
 fi
 
-coverage=0
 
 @%:@ Check whether --with-coverage was given.
 if test "${with_coverage+set}" = set; then :
   withval=$with_coverage; 
 fi
 
+coverage=0
 if test "x$with_coverage" = "xyes"; then :
   coverage=1
 fi
@@ -1832,7 +1825,6 @@ fi
 ##########
 #
 # output results
-
 
 
 

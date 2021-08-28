@@ -27,11 +27,11 @@ export MKDIR ?= mkdir -p
 
 .PHONY: all
 all:
-	$(MAKE) -C genmsg all
+	$(MAKE) -C cpp-class-parser all
 
 .PHONY: install
 install: $(DESTDIR)/lib $(DESTDIR)/bin
-	$(MAKE) -C genmsg install
+	$(MAKE) -C cpp-class-parser install
 
 $(DESTDIR)/lib $(DESTDIR)/bin:
 	$(MKDIR) $@
@@ -40,10 +40,10 @@ $(DESTDIR)/lib $(DESTDIR)/bin:
 .PHONY: clean veryclean
 clean veryclean:
 	$(RM) *~ \#*#
-	$(MAKE) -C genmsg $@
+	$(MAKE) -C cpp-class-parser $@
 
 .PHONY: distclean
 distclean: veryclean
 	$(RM) -R autom4te.cache
 	$(RM) config.log config.status configure Makefile
-	$(MAKE) -C genmsg distclean
+	$(MAKE) -C cpp-class-parser distclean
