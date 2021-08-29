@@ -31,7 +31,7 @@
 #define VISITOR_H_
 
 #include <iostream>
-#include "../rcl-genmsg/ClassInformation.h"
+#include "../cpp-class-parser/ClassInformation.h"
 
 
 #pragma GCC diagnostic push
