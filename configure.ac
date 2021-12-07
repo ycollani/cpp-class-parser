@@ -10,14 +10,8 @@ AC_CONFIG_FILES(Makefile)
 #
 # project options
 
-AC_ARG_ENABLE([lls],
-              AS_HELP_STRING([--enable-lls], [enable project "lls"]))
-
 AC_ARG_ENABLE([activeshuttle],
               AS_HELP_STRING([--enable-activeshuttle], [enable project "activeshuttle"]))
-
-AC_ARG_ENABLE([activeshuttle_dualrcu],
-              AS_HELP_STRING([--enable-activeshuttle_dualrcu], [enable project "activeshuttle_dualrcu"]))
 
 AC_ARG_ENABLE([devel_activeshuttle],
               AS_HELP_STRING([--enable-devel_activeshuttle], [enable project "devel_activeshuttle"]))
@@ -26,9 +20,7 @@ AC_ARG_ENABLE([devel_activeshuttle],
 
 NUMPROJ=0
 
-AS_IF([test "x$enable_lls"                   = "xyes"], [NUMPROJ=`expr $NUMPROJ + 1`])
 AS_IF([test "x$enable_activeshuttle"         = "xyes"], [NUMPROJ=`expr $NUMPROJ + 1`])
-AS_IF([test "x$enable_activeshuttle_dualrcu" = "xyes"], [NUMPROJ=`expr $NUMPROJ + 1`])
 AS_IF([test "x$enable_devel_activeshuttle"   = "xyes"], [NUMPROJ=`expr $NUMPROJ + 1`])
 
 AS_IF([test "$NUMPROJ" -lt "1"], [AC_MSG_ERROR([no project enabled])])
@@ -37,9 +29,7 @@ AS_IF([test "$NUMPROJ" -gt "1"], [AC_MSG_ERROR([more than one project enabled])]
 # export selected project as variable
 
 project=undefined
-AS_IF([test "x$enable_lls"                   = "xyes"], project=lls)
 AS_IF([test "x$enable_activeshuttle"         = "xyes"], project=activeshuttle)
-AS_IF([test "x$enable_activeshuttle_dualrcu" = "xyes"], project=activeshuttle-dualrcu)
 AS_IF([test "x$enable_devel_activeshuttle"   = "xyes"], project=devel-activeshuttle)
 
 ##########
