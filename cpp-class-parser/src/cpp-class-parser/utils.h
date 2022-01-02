@@ -27,12 +27,12 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef SRC_RCL_GENMSG_UTILS_H_
-#define SRC_RCL_GENMSG_UTILS_H_
+#ifndef SRC_CPP_CLASS_PARSER_UTILS_H_
+#define SRC_CPP_CLASS_PARSER_UTILS_H_
 
 #include <string>
 
-#include "rcl-genmsg/ClassInformation.h"
+#include "../cpp-class-parser/ClassInformation.h"
 
 bool isBaseType (const std::string &typeName);
 void truncSpace (std::string s);
@@ -42,4 +42,4 @@ std::string getRelativePath  (const std::string &fileName, const std::string &cu
 const VC::MDSD::ClassInformation* findMessageClass (std::map<std::string, VC::MDSD::ClassInformation> *classMap, const std::string &baseClass);
 
 
-#endif /* SRC_RCL_GENMSG_UTILS_H_ */
+#endif /* SRC_CPP_CLASS_PARSER_UTILS_H_ */

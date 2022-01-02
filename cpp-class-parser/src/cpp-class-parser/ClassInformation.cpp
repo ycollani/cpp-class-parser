@@ -28,7 +28,7 @@
  */
 
 
-#include "rcl-genmsg/ClassInformation.h"
+#include "../cpp-class-parser/ClassInformation.h"
 
 #include <iostream>
 

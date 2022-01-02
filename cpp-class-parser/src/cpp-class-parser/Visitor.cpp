@@ -27,10 +27,11 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "../rcl-genmsg/Visitor.h"
+#include "../cpp-class-parser/Visitor.h"
 
 #include <map>
-#include "../rcl-genmsg/utils.h"
+
+#include "../cpp-class-parser/utils.h"
 
 namespace VC {
 namespace MDSD {

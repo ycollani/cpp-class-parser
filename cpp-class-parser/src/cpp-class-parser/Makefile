@@ -16,7 +16,7 @@ LIBS =  -lclangFrontend -lclangSerialization -lclangDriver \
 
 # -lLLVMSupport -lLLVMDemangle
 
-all: ../../lib/librcl-genmsg.so
+all: ../../lib/libcpp-class-parser.so
 
 INCLUDEDIR = -I ../ -I $(PREFIX)/include 
 LIBDIR = -L $(PREFIX)/lib
@@ -44,12 +44,12 @@ endif
 #genmsg: $(OBJS)
 #	$(LD) -o $@ $(LIBDIR) $(OBJS) $(LIBS)
 
-../../lib/librcl-genmsg.so: $(sort $(patsubst %.cpp, %.o, $(SRCS)))
+../../lib/libcpp-class-parser.so: $(sort $(patsubst %.cpp, %.o, $(SRCS)))
 	@echo "[LIB]" $@
 	$(LD) -shared -o $@ $(sort $(patsubst %.cpp, %.o, $(SRCS))) $(LIBS) $(LIBDIR) 
 	
 clean veryclean distclean:
-	$(RM) -f *.o genmsg *.d
+	$(RM) -f *.o *.d
 
 cleandepend:
 	$(RM) -f *.d

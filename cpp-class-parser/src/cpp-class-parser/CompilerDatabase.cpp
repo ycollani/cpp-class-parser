@@ -27,7 +27,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "rcl-genmsg/CompilerDatabase.h"
+#include "../cpp-class-parser/CompilerDatabase.h"
 
 #include <boost/filesystem.hpp>
 #include <iostream>

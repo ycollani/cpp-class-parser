@@ -27,42 +27,37 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef SRC_RCL_GENMSG_COMPILERDATABASE_H_
-#define SRC_RCL_GENMSG_COMPILERDATABASE_H_
 
-#include <iostream>
-#include "clang/Tooling/CompilationDatabase.h"
+#include "../cpp-class-parser/ASTConsumer.h"
 
-namespace clang {
-namespace tooling {
+namespace VC {
+namespace MDSD {
 
-class StaticCompilationDatabase : public CompilationDatabase {
-public:
-    /// Returns all compile commands in which the specified file was
-    /// compiled.
-    ///
-    /// FIXME: Currently FilePath must be an absolute path inside the
-    /// source directory which does not have symlinks resolved.
-    std::vector<CompileCommand> getCompileCommands(StringRef FilePath) const override;
+// ========================================
+// ==
+// ========================================
 
-    /// Returns the list of all files available in the compilation database.
-    ///
-    /// These are the 'file' entries of the JSON objects.
-    std::vector<std::string> getAllFiles() const override;
+ASTConsumer::ASTConsumer(clang::CompilerInstance *CI, std::map<std::string, ClassInformation> *_classMap, TypedefInformation *_typedefInformation)
+: visitor(new Visitor(CI, _classMap, _typedefInformation)), // initialize the visitor
+  classMap { _classMap },
+  typedefInformation { _typedefInformation }
+{
 
-    /// Returns all compile commands for all the files in the compilation
-    /// database.
-    std::vector<CompileCommand> getAllCompileCommands() const override;
-
-    /// Constructs a static compilation database
-    StaticCompilationDatabase()
-    {
-        //std::cout << "Create static compilation database" << std::endl;
-    }
-};
-
-}  // namespace tooling
-}  // namespace clang
+}
 
 
-#endif /* SRC_RCL_GENMSG_COMPILERDATABASE_H_ */
+// ========================================
+// ==
+// ========================================
+
+void ASTConsumer::HandleTranslationUnit(clang::ASTContext &Context) {
+    /* we can use ASTContext to get the TranslationUnitDecl, which is
+         a single Decl that collectively represents the entire source file */
+    visitor->TraverseDecl(Context.getTranslationUnitDecl());
+}
+
+
+
+
+}  // namespace MDSD
+}  // namespace RB
