@@ -1,3 +1,4 @@
+
 all: lib share
 	$(MAKE) -C src all
 
@@ -11,7 +12,7 @@ clean veryclean distclean cleandepend:
 
 install: all
 	$(CP) -au lib $(DESTDIR)
-	mkdir -p $(DESTDIR)/include/rcl-genmsg
-	$(CP) -au src/rcl-genmsg/*.h $(DESTDIR)/include/rcl-genmsg
+	mkdir -p $(DESTDIR)/include/cpp-class-parser
+	$(CP) -au src/cpp-class-parser/*.h $(DESTDIR)/include/cpp-class-parser
 	#cd $(DESTDIR); tar -czf ../rcl-genmsg-compiled.tgz lib/librcl-genmsg.so include/rcl-genmsg
 
