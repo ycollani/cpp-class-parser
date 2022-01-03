@@ -60,7 +60,7 @@ public:
     : name (_name), typeName (_type), trivialType {_c}
 	{
 	    if (typeName == "_Bool") typeName = "bool";
-            if (typeName == "basic_string<char>") typeName = "std::string";
+            //if (typeName == "basic_string<char>") typeName = "std::string";
 	    if (typeName.substr (0,6) == "class ")
 	        simpleTypeName = typeName.substr (6, std::string::npos);
 	    else

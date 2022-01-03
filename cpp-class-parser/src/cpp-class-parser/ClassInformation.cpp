@@ -92,6 +92,9 @@ std::string TypedefInformation::replaceType (const std::string &typeName)
 {
     std::string rc = typeName;
 
+    // do not replace std::string with basic_string<char>
+    if (rc == "std::string") return rc;
+
     auto it = find (typeName);
     if (it != end())
     {
