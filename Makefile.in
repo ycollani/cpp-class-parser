@@ -1,5 +1,5 @@
 #
-# Makefile template for rcl-common
+# Makefile template for rcl-genmsg
 #
 
 export PROJECT     := @project@

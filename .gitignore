@@ -1,2 +1,10 @@
-/Makefile
+# exclude backup files
+*~
+\#*\#
+
+# exclude configuration results
+/autom4te.cache/
+/config.log
+/config.status
 /configure
+/Makefile
