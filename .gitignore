@@ -8,3 +8,8 @@
 /config.status
 /configure
 /Makefile
+
+.cproject
+.project
+.settings/
+
