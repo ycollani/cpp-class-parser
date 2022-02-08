@@ -35,7 +35,7 @@
 #include "../cpp-class-parser/ClassInformation.h"
 
 bool isBaseType (const std::string &typeName);
-void truncSpace (std::string s);
+void truncSpace (std::string &s);
 std::string getPureClassName (const std::string &s);
 std::string getRelativePath  (const std::string &fileName, const std::string &currentDir = std::string (getenv("PWD")));
 

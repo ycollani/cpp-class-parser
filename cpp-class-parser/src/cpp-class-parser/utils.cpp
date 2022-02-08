@@ -67,7 +67,7 @@ bool isBaseType (const std::string &typeName)
 }
 
 
-void truncSpace (std::string s)
+void truncSpace (std::string &s)
 {
 	while (s.size() && s[0] == ' ') s.erase (0,1);
 	while (s.size() && s[s.size() -1] == ' ') s.erase (s.size() - 1 ,1);
