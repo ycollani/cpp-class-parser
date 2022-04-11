@@ -1,13 +1,11 @@
 # Copyright 2018 - 2021: Yorck von Collani (yorck@von-collani.de)
 
-LLVMLIBS := $(shell $(PREFIX)/bin/llvm-config --libs)
-LLVMINC  := $(shell $(PREFIX)/bin/llvm-config --cxxflags)
+
+LLVMLIBS := $(shell $(LLVMDIR)/bin/llvm-config --libs)
+LLVMINC  := $(shell $(LLVMDIR)/bin/llvm-config --cxxflags)
 
 CXX = g++ -c -g -Wall -MMD -fPIC -I ../ $(LLVMINC)
 LD  = g++ -g
-
-#CXX = /vol/llvm/bin/clang++ -c -g -Wall -std=c++11 -fvisibility=hidden
-#LD  = /vol/llvm/bin/clang++ -std=c++14 -g -fvisibility=hidden
 
 LIBS =  -lclangFrontend -lclangSerialization -lclangDriver \
            -lclangTooling -lclangParse -lclangSema -lclangToolingCore  \
@@ -19,7 +17,7 @@ LIBS =  -lclangFrontend -lclangSerialization -lclangDriver \
 all: ../../lib/libcpp-class-parser.so
 
 INCLUDEDIR = -I ../ -I $(PREFIX)/include 
-LIBDIR = -L $(PREFIX)/lib
+LIBDIR = -L $(LLVMDIR)/lib
 
 #../bin/genmsg: genmsg
 #	cp genmsg ../../bin/

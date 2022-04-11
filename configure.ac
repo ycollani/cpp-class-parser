@@ -16,12 +16,17 @@ AC_ARG_ENABLE([activeshuttle],
 AC_ARG_ENABLE([devel_activeshuttle],
               AS_HELP_STRING([--enable-devel_activeshuttle], [enable project "devel_activeshuttle"]))
 
+AC_ARG_ENABLE([standalone],
+              AS_HELP_STRING([--enable-standalone], [enable project "standalone"]))
+
+
 # sanity checks, so that not two projects are enabled at the same time
 
 NUMPROJ=0
 
 AS_IF([test "x$enable_activeshuttle"         = "xyes"], [NUMPROJ=`expr $NUMPROJ + 1`])
 AS_IF([test "x$enable_devel_activeshuttle"   = "xyes"], [NUMPROJ=`expr $NUMPROJ + 1`])
+AS_IF([test "x$enable_standalone"            = "xyes"], [NUMPROJ=`expr $NUMPROJ + 1`])
 
 AS_IF([test "$NUMPROJ" -lt "1"], [AC_MSG_ERROR([no project enabled])])
 AS_IF([test "$NUMPROJ" -gt "1"], [AC_MSG_ERROR([more than one project enabled])])
@@ -31,6 +36,7 @@ AS_IF([test "$NUMPROJ" -gt "1"], [AC_MSG_ERROR([more than one project enabled])]
 project=undefined
 AS_IF([test "x$enable_activeshuttle"         = "xyes"], project=activeshuttle)
 AS_IF([test "x$enable_devel_activeshuttle"   = "xyes"], project=devel-activeshuttle)
+AS_IF([test "x$enable_standalone"            = "xyes"], project=standalone)
 
 ##########
 #

@@ -1,0 +1,30 @@
+export CP    ?= cp -P
+export RM    ?= rm -f
+export MAKE  ?= make
+export MKDIR ?= mkdir -p
+
+export LLVMDIR=/opt/llvm/
+
+
+.PHONY: all
+all:
+	$(MAKE) -C cpp-class-parser all
+
+.PHONY: install
+install: $(DESTDIR)/lib $(DESTDIR)/bin
+	$(MAKE) -C cpp-class-parser install
+
+$(DESTDIR)/lib $(DESTDIR)/bin:
+	$(MKDIR) $@
+
+
+.PHONY: clean veryclean
+clean veryclean:
+	$(RM) *~ \#*#
+	$(MAKE) -C cpp-class-parser $@
+
+.PHONY: distclean
+distclean: veryclean
+	$(RM) -R autom4te.cache
+	$(RM) config.log config.status configure Makefile
+	$(MAKE) -C cpp-class-parser distclean
