@@ -33,6 +33,7 @@
 #include <vector>
 #include <map>
 #include <utility>
+#include <string>
 
 namespace VC {
 namespace MDSD {
