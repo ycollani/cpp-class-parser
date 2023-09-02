@@ -38,27 +38,11 @@ namespace tooling {
 
 class StaticCompilationDatabase : public CompilationDatabase {
 public:
-    /// Returns all compile commands in which the specified file was
-    /// compiled.
-    ///
-    /// FIXME: Currently FilePath must be an absolute path inside the
-    /// source directory which does not have symlinks resolved.
     std::vector<CompileCommand> getCompileCommands(StringRef FilePath) const override;
-
-    /// Returns the list of all files available in the compilation database.
-    ///
-    /// These are the 'file' entries of the JSON objects.
-    std::vector<std::string> getAllFiles() const override;
-
-    /// Returns all compile commands for all the files in the compilation
-    /// database.
+    std::vector<std::string>    getAllFiles() const override;
     std::vector<CompileCommand> getAllCompileCommands() const override;
 
-    /// Constructs a static compilation database
-    StaticCompilationDatabase()
-    {
-        //std::cout << "Create static compilation database" << std::endl;
-    }
+    using CompilationDatabase::CompilationDatabase;
 };
 
 }  // namespace tooling

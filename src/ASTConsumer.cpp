@@ -34,30 +34,25 @@ namespace VC {
 namespace MDSD {
 
 // ========================================
-// ==
+// == ASTConsumer::ASTConsumer
 // ========================================
 
 ASTConsumer::ASTConsumer(clang::CompilerInstance *CI, std::map<std::string, ClassInformation> *_classMap, TypedefInformation *_typedefInformation)
-: visitor(new Visitor(CI, _classMap, _typedefInformation)), // initialize the visitor
-  classMap { _classMap },
-  typedefInformation { _typedefInformation }
+: visitor(new Visitor(CI, _classMap, _typedefInformation))
+, classMap {_classMap }
+, typedefInformation { _typedefInformation }
 {
 
 }
 
-
 // ========================================
-// ==
+// == void ASTConsumer::HandleTranslationUnit
 // ========================================
 
-void ASTConsumer::HandleTranslationUnit(clang::ASTContext &Context) {
-    /* we can use ASTContext to get the TranslationUnitDecl, which is
-         a single Decl that collectively represents the entire source file */
+void ASTConsumer::HandleTranslationUnit(clang::ASTContext &Context)
+{
     visitor->TraverseDecl(Context.getTranslationUnitDecl());
 }
-
-
-
 
 }  // namespace MDSD
 }  // namespace RB

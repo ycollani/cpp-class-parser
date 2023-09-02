@@ -39,25 +39,18 @@ namespace tooling {
 
 namespace {
 
-    class StaticCompilationDatabasePlugin : public CompilationDatabasePlugin
+class StaticCompilationDatabasePlugin : public CompilationDatabasePlugin
+{
+    std::unique_ptr<CompilationDatabase> loadFromDirectory(StringRef Directory, std::string& ErrorMessage) override
     {
-        std::unique_ptr<CompilationDatabase> loadFromDirectory(StringRef Directory, std::string &ErrorMessage) override
-        {
-            //std::cout << __PRETTY_FUNCTION__ << std::endl;
-            return std::unique_ptr<CompilationDatabase> (new StaticCompilationDatabase);
-        }
-    };
+        return std::unique_ptr<CompilationDatabase>(new StaticCompilationDatabase);
+    }
+};
 
-}
+}  // namespace
 
-
-// Register the JSONCompilationDatabasePlugin with the
-// CompilationDatabasePluginRegistry using this statically initialized variable.
 static CompilationDatabasePluginRegistry::Add<StaticCompilationDatabasePlugin> X("static-compilation-database",
-                                                                               "Provides a static defined compilation databases");
-
-// This anchor is used to force the linker to link in the generated object file
-// and thus register the JSONCompilationDatabasePlugin.
+                                                                                 "Provides a static defined compilation databases");
 
 volatile int JSONAnchorSource = 0;
 
@@ -67,12 +60,12 @@ volatile int JSONAnchorSource = 0;
 
 std::vector<CompileCommand> StaticCompilationDatabase::getCompileCommands(StringRef FilePath) const
 {
-    //std::cout << __FUNCTION__ <<  std::endl;
+    // std::cout << __FUNCTION__ <<  std::endl;
 
     std::string directory = boost::filesystem::path(FilePath.str()).parent_path().generic_string();
     std::string fileName  = FilePath.str();
 
-    std::vector< std::string > CommandLine;
+    std::vector<std::string> CommandLine;
     CommandLine.push_back("/usr/bin/g++");
     CommandLine.push_back("-I/usr/include/c++/7");
     CommandLine.push_back("-I/usr/include/c++/9");
@@ -83,17 +76,14 @@ std::vector<CompileCommand> StaticCompilationDatabase::getCompileCommands(String
     CommandLine.push_back("-I/usr/lib/gcc/x86_64-linux-gnu/7/include/");
     CommandLine.push_back("-I/usr/lib/gcc/x86_64-linux-gnu/9/include/");
     CommandLine.push_back("-I/usr/lib/gcc/x86_64-linux-gnu/11/include/");
-    const char* currentDir=getenv("PWD");
+    const char* currentDir = getenv("PWD");
     CommandLine.push_back(std::string("-I") + std::string(currentDir));
     CommandLine.push_back(fileName);
 
-    std::string outputFile ("a.out");
-
-    //std::cout << "Dir : " << directory << std::endl;
-    //std::cout << "File: " <<fileName << std::endl;
+    std::string outputFile("a.out");
 
     std::vector<CompileCommand> Commands;
-    Commands.push_back (CompileCommand (directory, fileName, CommandLine, outputFile));
+    Commands.push_back(CompileCommand(directory, fileName, CommandLine, outputFile));
     return Commands;
 }
 
@@ -103,7 +93,6 @@ std::vector<CompileCommand> StaticCompilationDatabase::getCompileCommands(String
 
 std::vector<std::string> StaticCompilationDatabase::getAllFiles() const
 {
-    //std::cout << __FUNCTION__ <<  std::endl;
     std::vector<std::string> Result;
     return Result;
 }
@@ -114,7 +103,6 @@ std::vector<std::string> StaticCompilationDatabase::getAllFiles() const
 
 std::vector<CompileCommand> StaticCompilationDatabase::getAllCompileCommands() const
 {
-    //std::cout << __FUNCTION__ <<  std::endl;
     std::vector<CompileCommand> Commands;
     return Commands;
 }

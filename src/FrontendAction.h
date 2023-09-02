@@ -49,7 +49,7 @@ class FrontendAction : public clang::ASTFrontendAction
 {
 
 public:
-    virtual ~FrontendAction();
+    virtual ~FrontendAction() = default;
     virtual std::unique_ptr<clang::ASTConsumer> CreateASTConsumer(clang::CompilerInstance &CI, llvm::StringRef file) override;
 };
 

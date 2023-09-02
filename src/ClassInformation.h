@@ -45,37 +45,41 @@ namespace MDSD {
 class MemberInformation
 {
 protected:
-	std::string name;
-	std::string simpleTypeName;
-	std::string typeName;
+    std::string name;
+    std::string simpleTypeName;
+    std::string typeName;
 
-	bool        trivialType = false;
+    bool trivialType = false;
 
 public:
-	MemberInformation (void)
- 	{
+    MemberInformation() = default;
+    MemberInformation(const MemberInformation&) = default;
+    MemberInformation(MemberInformation&&) = default;
+    ~MemberInformation() = default;
 
- 	}
+    MemberInformation& operator=(const MemberInformation&) = default;
+    MemberInformation& operator=(MemberInformation&&) = default;
 
-	MemberInformation (const std::string &_name, const std::string &_type, bool _c)
-    : name (_name), typeName (_type), trivialType {_c}
-	{
-	    if (typeName == "_Bool") typeName = "bool";
-            //if (typeName == "basic_string<char>") typeName = "std::string";
-	    if (typeName.substr (0,6) == "class ")
-	        simpleTypeName = typeName.substr (6, std::string::npos);
-	    else
-	        simpleTypeName = typeName;
-	}
+    MemberInformation(const std::string &_name, const std::string &_type, bool _c)
+    : name(_name)
+    , typeName(_type)
+    , trivialType {_c}
+    {
+        if (typeName == "_Bool") typeName = "bool";
+        // if (typeName == "basic_string<char>") typeName = "std::string";
+        if (typeName.substr(0, 6) == "class ")
+            simpleTypeName = typeName.substr(6, std::string::npos);
+        else
+            simpleTypeName = typeName;
+    }
 
-    const std::string& getName(void) const { return name; }
-    const std::string& getSimpleTypeName(void) const { return simpleTypeName; }
-    const std::string& getTypeName(void) const { return typeName; }
+    const std::string &getName(void) const { return name; }
+    const std::string &getSimpleTypeName(void) const { return simpleTypeName; }
+    const std::string &getTypeName(void) const { return typeName; }
     bool               isTrivialType(void) const { return trivialType; }
 
-    void Show (void) const;
+    void Show(void) const;
 };
-
 
 // ========================================
 // ==

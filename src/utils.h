@@ -34,10 +34,10 @@
 
 #include "ClassInformation.h"
 
-bool isBaseType (const std::string &typeName);
-void truncSpace (std::string &s);
-std::string getPureClassName (const std::string &s);
-std::string getRelativePath  (const std::string &fileName, const std::string &currentDir = std::string (getenv("PWD")));
+bool        isBaseType(const std::string &typeName);
+void        truncSpace(std::string &s);
+std::string getPureClassName(const std::string &s);
+std::string getRelativePath(const std::string &fileName, const std::string &currentDir = std::string(getenv("PWD")));
 
 const VC::MDSD::ClassInformation* findMessageClass (std::map<std::string, VC::MDSD::ClassInformation> *classMap, const std::string &baseClass);
 

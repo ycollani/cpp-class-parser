@@ -34,11 +34,7 @@
 #include <boost/filesystem.hpp>
 
 // ========================================
-// ==
-// ========================================
-
-// ========================================
-// ==
+// == isBaseType
 // ========================================
 
 bool isBaseType (const std::string &typeName)
@@ -66,66 +62,74 @@ bool isBaseType (const std::string &typeName)
 	return false;
 }
 
+// ========================================
+// == truncSpace
+// ========================================
 
-void truncSpace (std::string &s)
+void truncSpace(std::string &s)
 {
-	while (s.size() && s[0] == ' ') s.erase (0,1);
-	while (s.size() && s[s.size() -1] == ' ') s.erase (s.size() - 1 ,1);
+    while (s.size() && s[0] == ' ') s.erase(0, 1);
+    while (s.size() && s[s.size() - 1] == ' ') s.erase(s.size() - 1, 1);
 }
 
+// ========================================
+// == getPureClassName
+// ========================================
 
-std::string getPureClassName (const std::string &s)
+std::string getPureClassName(const std::string &s)
 {
     const auto pos = s.find_last_of(':');
-    if (pos == std::string::npos)
-        return s;
+    if (pos == std::string::npos) return s;
 
-    std::string returnValue = s.substr (pos+1);
+    std::string returnValue = s.substr(pos + 1);
+    return returnValue;
+}
+
+// ========================================
+// == getRelativePath
+// ========================================
+
+std::string getRelativePath(const std::string &fileName, const std::string &currentDir)
+{
+    std::string directory = boost::filesystem::path(fileName).parent_path().generic_string();
+
+    while ((directory.length() > 0) && (directory != currentDir))
+    {
+        directory = boost::filesystem::path(directory).parent_path().generic_string();
+    }
+
+    std::string returnValue;
+    if (directory.length())
+    {
+        returnValue = fileName.substr(directory.length() + 1);
+    }
+    else
+    {
+        returnValue = fileName;
+    }
     return returnValue;
 }
 
 
-std::string getRelativePath  (const std::string &fileName, const std::string &currentDir)
-{
-  std::string directory = boost::filesystem::path(fileName).parent_path().generic_string();
+// ========================================
+// == findMessageClass
+// ========================================
 
-  while ( (directory.length() > 0) && (directory != currentDir))
-  {
-      directory = boost::filesystem::path(directory).parent_path().generic_string();
-  }
-
-  std::string returnValue;
-  if (directory.length())
-  {
-      returnValue = fileName.substr (directory.length() + 1);
-  }
-  else
-  {
-      returnValue = fileName;
-  }
-  return returnValue;
-}
-
-
-const VC::MDSD::ClassInformation* findMessageClass (std::map<std::string, VC::MDSD::ClassInformation> *classMap, const std::string &baseClass)
+const VC::MDSD::ClassInformation *findMessageClass(std::map<std::string, VC::MDSD::ClassInformation> *classMap,
+                                                   const std::string &                                baseClass)
 {
     for (auto &it : *classMap)
     {
-        std::string      name = it.first;
-        VC::MDSD::ClassInformation &c   = it.second;
-
-        //std::cout << "Check " << name << " for message class for type: " << baseClass << std::endl;
+        std::string                 name = it.first;
+        VC::MDSD::ClassInformation &c    = it.second;
 
         size_t numBaseClasses = c.getNumBasesClasses();
         for (size_t index = 0; index < numBaseClasses; index++)
         {
-            //std::cout << "  base (" << index << "): " << c.getBaseClass(index) << std::endl;
-            if (c.getBaseClass (index) ==  baseClass)
+            if (c.getBaseClass(index) == baseClass)
             {
-                //std::cout << "    check name of " << name << "  " <<  name.substr (name.size() - 4, 3) << std::endl;
-                if (name.substr (name.size() - 3, 3) == "Msg")
+                if (name.substr(name.size() - 3, 3) == "Msg")
                 {
-                    //std::cout << "Found: " << name << std::endl;
                     return &c;
                 }
             }

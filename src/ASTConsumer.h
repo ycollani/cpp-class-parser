@@ -38,21 +38,22 @@
 namespace VC {
 namespace MDSD {
 
-class ASTConsumer : public clang::ASTConsumer {
+class ASTConsumer : public clang::ASTConsumer
+{
 private:
-    VC::MDSD::Visitor                       *visitor = nullptr;
+    VC::MDSD::Visitor *                      visitor = nullptr;
     std::map<std::string, ClassInformation> *classMap;
-    TypedefInformation                      *typedefInformation;
-
+    TypedefInformation *                     typedefInformation;
 
 public:
     // override the constructor in order to pass CI
-    explicit ASTConsumer(clang::CompilerInstance *CI, std::map<std::string, ClassInformation> *_classMap, TypedefInformation *_typedefInformation);
+    explicit ASTConsumer(clang::CompilerInstance *                CI,
+                         std::map<std::string, ClassInformation> *_classMap,
+                         TypedefInformation *                     _typedefInformation);
 
     // override this to call our ExampleVisitor on the entire source file
     virtual void HandleTranslationUnit(clang::ASTContext &Context);
 };
-
 
 }  // namespace MDSD
 }  // namespace RB

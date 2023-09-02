@@ -43,25 +43,14 @@ namespace VC {
 namespace MDSD {
 
 // ========================================
-// ==
-// ========================================
-
-FrontendAction::~FrontendAction()
-{
-	//std::cout << __PRETTY_FUNCTION__ << std::endl;
-}
-
-
-// ========================================
-// ==
+// == FrontendAction::CreateASTConsumer
 // ========================================
 
 std::unique_ptr<clang::ASTConsumer> FrontendAction::CreateASTConsumer(clang::CompilerInstance &CI, llvm::StringRef file)
 {
     CI.getDiagnostics().setClient(new clang::IgnoringDiagConsumer());
-    return std::unique_ptr<clang::ASTConsumer> (new VC::MDSD::ASTConsumer(&CI, &classMap, &typedefInformation)); // pass CI pointer to ASTConsumer
+    return std::unique_ptr<clang::ASTConsumer>(new VC::MDSD::ASTConsumer(&CI, &classMap, &typedefInformation));
 }
-
 
 }  // namespace MDSD
 }  // namespace RB
