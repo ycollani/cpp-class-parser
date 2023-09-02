@@ -13,3 +13,6 @@
 .project
 .settings/
 
+*.d
+*.o
+*.so
