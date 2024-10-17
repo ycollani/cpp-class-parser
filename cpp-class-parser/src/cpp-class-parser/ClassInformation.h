@@ -51,6 +51,8 @@ protected:
 
 	bool        trivialType = false;
 
+	void fixTypeName (std::string &tName);
+
 public:
 	MemberInformation (void)
  	{
@@ -60,7 +62,8 @@ public:
 	MemberInformation (const std::string &_name, const std::string &_type, bool _c)
     : name (_name), typeName (_type), trivialType {_c}
 	{
-	    if (typeName == "_Bool") typeName = "bool";
+	    fixTypeName (typeName);
+	    //if (typeName == "_Bool") typeName = "bool";
             //if (typeName == "basic_string<char>") typeName = "std::string";
 	    if (typeName.substr (0,6) == "class ")
 	        simpleTypeName = typeName.substr (6, std::string::npos);

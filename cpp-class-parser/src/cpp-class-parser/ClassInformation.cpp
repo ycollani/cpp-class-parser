@@ -38,6 +38,26 @@ namespace MDSD
 {
 
 
+void MemberInformation::fixTypeName (std::string &tName)
+{
+    if (tName == "_Bool")
+    {
+        tName = "bool";
+        return;
+    }
+    size_t s_pos = tName.find('<');
+    size_t e_pos = tName.rfind('>');
+    if  ((s_pos != std::string::npos) && (e_pos != std::string::npos) && (s_pos < e_pos))
+    {
+        std::string tmpName = tName.substr(s_pos + 1, e_pos - s_pos -1);
+        fixTypeName (tmpName);
+        std::string newName = tName.substr (0, s_pos + 1) + tmpName + tName.substr(e_pos);
+        tName = std::move(newName);
+        return;
+    }
+}
+
+
 void MemberInformation::Show(void) const
 {
     std::cout << "    member: " << name << "   type: " << typeName << "   canonical: " << trivialType << std::endl;
