@@ -28,7 +28,7 @@
  */
 
 
-#include "../cpp-class-parser/ClassInformation.h"
+#include "../../../src/ClassInformation.h"
 
 #include <iostream>
 

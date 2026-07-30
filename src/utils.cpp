@@ -28,7 +28,7 @@
  */
 
 
-#include "../cpp-class-parser/utils.h"
+#include "../../../src/utils.h"
 
 #include <iostream>
 #include <boost/filesystem.hpp>

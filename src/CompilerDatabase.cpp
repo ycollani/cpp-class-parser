@@ -27,7 +27,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "../cpp-class-parser/CompilerDatabase.h"
+#include "../../../src/CompilerDatabase.h"
 
 #include <boost/filesystem.hpp>
 #include <iostream>

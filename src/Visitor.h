@@ -27,19 +27,55 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef SRC_CPP_CLASS_PARSER_UTILS_H_
-#define SRC_CPP_CLASS_PARSER_UTILS_H_
+#ifndef VISITOR_H_
+#define VISITOR_H_
 
-#include <string>
+#include <iostream>
 
-#include "../cpp-class-parser/ClassInformation.h"
-
-bool isBaseType (const std::string &typeName);
-void truncSpace (std::string &s);
-std::string getPureClassName (const std::string &s);
-std::string getRelativePath  (const std::string &fileName, const std::string &currentDir = std::string (getenv("PWD")));
-
-const VC::MDSD::ClassInformation* findMessageClass (std::map<std::string, VC::MDSD::ClassInformation> *classMap, const std::string &baseClass);
+#include "../../../src/ClassInformation.h"
 
 
-#endif /* SRC_CPP_CLASS_PARSER_UTILS_H_ */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcomment"
+#pragma GCC system_header
+#include "clang/Driver/Options.h"
+#include "clang/AST/AST.h"
+#include "clang/AST/ASTContext.h"
+#include "clang/AST/ASTConsumer.h"
+#include "clang/AST/RecursiveASTVisitor.h"
+#include "clang/Frontend/ASTConsumers.h"
+#include "clang/Frontend/FrontendActions.h"
+#include "clang/Frontend/CompilerInstance.h"
+#include "clang/Tooling/CommonOptionsParser.h"
+#include "clang/Tooling/Tooling.h"
+//#include "clang/Rewrite/Core/Rewriter.h"
+
+#pragma GCC diagnostic pop
+
+
+namespace VC {
+namespace MDSD {
+
+class Visitor : public clang::RecursiveASTVisitor<VC::MDSD::Visitor>
+{
+private:
+    clang::ASTContext *                      astContext;  // used for getting additional AST info
+    std::map<std::string, ClassInformation> *classMap = nullptr;
+    TypedefInformation *                     typedefInformation;
+
+    void processClassDeclration (clang::CXXRecordDecl *Declaration, clang::SourceManager &sourceManager);
+
+public:
+    explicit Visitor (clang::CompilerInstance *CI, std::map<std::string, ClassInformation> *_classMap, TypedefInformation *_typedefInformation);
+    virtual ~Visitor (void);
+
+    virtual bool VisitCXXRecordDecl(clang::CXXRecordDecl *Declaration);
+    virtual bool VisitType (clang::Type *Type);
+};
+
+
+}  // namespace MDSD
+}  // namespace RB
+
+
+#endif /* VISITOR_H_ */
