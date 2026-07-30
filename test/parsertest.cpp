@@ -1,3 +1,10 @@
+/*
+ * getmsg.cpp
+ *
+ *  Created on: 29.11.2018
+ *      Author: ycollani
+ */
+
 #include <assert.h>
 #include <iostream>
 #include <map>
@@ -15,6 +22,7 @@
 #include "clang/AST/ASTConsumer.h"
 #include "clang/AST/ASTContext.h"
 #include "clang/AST/RecursiveASTVisitor.h"
+#include "clang/Driver/Options.h"
 #include "clang/Frontend/ASTConsumers.h"
 #include "clang/Frontend/CompilerInstance.h"
 #include "clang/Frontend/FrontendActions.h"
@@ -24,8 +32,8 @@
 
 #pragma GCC diagnostic pop
 
-//extern std::map<std::string, VC::MDSD::ClassInformation> classMap;
-//extern VC::MDSD::TypedefInformation typedefInformation;
+extern std::map<std::string, VC::MDSD::ClassInformation> classMap;
+extern VC::MDSD::TypedefInformation typedefInformation;
 
 // ========= Options =======
 
@@ -49,7 +57,7 @@ static llvm::cl::extrahelp MoreHelp("\nMore help text...\n");
 
 int main(int argc, const char **argv)
 {
-    clang::tooling::CommonOptionsParser OptionsParser(argc, argv, MyToolCategory);
+    //clang::tooling::CommonOptionsParser OptionsParser(argc, argv, MyToolCategory);
 
     auto OptionsParser = clang::tooling::CommonOptionsParser::create (argc, argv, MyToolCategory, llvm::cl::OneOrMore, nullptr);
 
@@ -69,7 +77,7 @@ int main(int argc, const char **argv)
         for (const auto &s : srcPaths)
             std::cout << "  " << s << std::endl;
     }
-/*
+
     std::shared_ptr<clang::tooling::FrontendActionFactory> frontEndActionFactory =
         clang::tooling::newFrontendActionFactory<VC::MDSD::FrontendAction>();
     int rc = Tool.run(frontEndActionFactory.get());
@@ -77,6 +85,13 @@ int main(int argc, const char **argv)
     {
         return 1;
     }
-*/
+
+    assert(frontEndActionFactory.get() != nullptr);
+
+    std::unique_ptr<clang::FrontendAction> frontEndActionPtr = frontEndActionFactory->create();
+    assert(frontEndActionPtr != nullptr);
+
+    // ======
+
     return 0;
 }

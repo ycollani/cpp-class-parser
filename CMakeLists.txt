@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.0)
+cmake_minimum_required(VERSION 3.22.1)
 project(class-parser)
 
 add_compile_options(-Wall -pedantic -std=c++17)
@@ -48,7 +48,20 @@ target_link_libraries(cpp-class-parser PUBLIC
 
 add_executable(parsertest test/parsertest.cpp)
 target_include_directories(parsertest PUBLIC "$ENV{PREFIX}/include" src/)
-target_link_libraries(parsertest PRIVATE cpp-class-parser) 
-
-target_link_libraries(parsertest PUBLIC
-  clang-cpp)
+target_link_libraries(parsertest PUBLIC clangASTMatchers clangCrossTU clangSupport LLVM-17git
+  clangSerialization
+  clangDriver
+  clangTooling
+  clangParse
+  clangSema
+  clangToolingCore
+  clangAnalysis
+  clangFrontend
+  clangRewriteFrontend
+  clangRewrite
+  clangEdit
+  clangAST
+  clangLex
+  clangBasic
+  clangFrontend
+  clang-cpp cpp-class-parser)
