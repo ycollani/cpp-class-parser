@@ -32,7 +32,7 @@
 
 #include <string>
 
-#include "../../../src/ClassInformation.h"
+#include "ClassInformation.h"
 
 bool isBaseType (const std::string &typeName);
 void truncSpace (std::string &s);

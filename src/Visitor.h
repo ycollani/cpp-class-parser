@@ -32,13 +32,13 @@
 
 #include <iostream>
 
-#include "../../../src/ClassInformation.h"
+#include "ClassInformation.h"
 
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wcomment"
 #pragma GCC system_header
-#include "clang/Driver/Options.h"
+//#include "clang/Driver/Options.h"
 #include "clang/AST/AST.h"
 #include "clang/AST/ASTContext.h"
 #include "clang/AST/ASTConsumer.h"

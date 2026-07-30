@@ -27,11 +27,11 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "../cpp-class-parser/Visitor.h"
+#include "Visitor.h"
 
 #include <map>
 
-#include "../cpp-class-parser/utils.h"
+#include "utils.h"
 
 namespace VC {
 namespace MDSD {

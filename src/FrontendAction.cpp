@@ -28,12 +28,12 @@
  */
 
 
-#include "../cpp-class-parser/FrontendAction.h"
+#include "FrontendAction.h"
 
 #include <map>
 #include <iostream>
-#include "../cpp-class-parser/ASTConsumer.h"
-#include "../cpp-class-parser/ClassInformation.h"
+#include "ASTConsumer.h"
+#include "ClassInformation.h"
 
 
 std::map<std::string, VC::MDSD::ClassInformation> classMap;

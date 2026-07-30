@@ -32,8 +32,8 @@
 
 #include <string>
 
-#include "../../../src/ClassInformation.h"
-#include "../../../src/Visitor.h"
+#include "ClassInformation.h"
+#include "Visitor.h"
 
 namespace VC {
 namespace MDSD {

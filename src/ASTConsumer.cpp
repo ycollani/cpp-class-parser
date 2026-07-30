@@ -28,7 +28,7 @@
  */
 
 
-#include "../cpp-class-parser/ASTConsumer.h"
+#include "ASTConsumer.h"
 
 namespace VC {
 namespace MDSD {

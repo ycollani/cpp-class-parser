@@ -28,7 +28,7 @@
  */
 
 
-#include "../../../src/ClassInformation.h"
+#include "ClassInformation.h"
 
 #include <iostream>
 

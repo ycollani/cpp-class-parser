@@ -27,9 +27,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "../../../src/CompilerDatabase.h"
+#include "CompilerDatabase.h"
 
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include <iostream>
 
 #include "clang/Tooling/CompilationDatabasePluginRegistry.h"
@@ -69,7 +69,7 @@ std::vector<CompileCommand> StaticCompilationDatabase::getCompileCommands(String
 {
     //std::cout << __FUNCTION__ <<  std::endl;
 
-    std::string directory = boost::filesystem::path(FilePath.str()).parent_path().generic_string();
+    std::string directory = std::filesystem::path(FilePath.str()).parent_path().generic_string();
     std::string fileName  = FilePath.str();
 
     std::vector< std::string > CommandLine;

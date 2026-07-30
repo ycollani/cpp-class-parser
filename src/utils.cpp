@@ -28,10 +28,10 @@
  */
 
 
-#include "../../../src/utils.h"
+#include "utils.h"
 
 #include <iostream>
-#include <boost/filesystem.hpp>
+#include <filesystem>
 
 // ========================================
 // ==
@@ -87,11 +87,11 @@ std::string getPureClassName (const std::string &s)
 
 std::string getRelativePath  (const std::string &fileName, const std::string &currentDir)
 {
-  std::string directory = boost::filesystem::path(fileName).parent_path().generic_string();
+  std::string directory = std::filesystem::path(fileName).parent_path().generic_string();
 
   while ( (directory.length() > 0) && (directory != currentDir))
   {
-      directory = boost::filesystem::path(directory).parent_path().generic_string();
+      directory = std::filesystem::path(directory).parent_path().generic_string();
   }
 
   std::string returnValue;
