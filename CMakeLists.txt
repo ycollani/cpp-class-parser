@@ -2,9 +2,7 @@ cmake_minimum_required(VERSION 3.22.1)
 project(class-parser) 
 
 execute_process(COMMAND $ENV{PREFIX}/bin/llvm-config --libs  core OUTPUT_VARIABLE LLVMLIBS_RAW OUTPUT_STRIP_TRAILING_WHITESPACE)
-
 separate_arguments(llvm_libs_list NATIVE_COMMAND "${LLVMLIBS_RAW}")
-
 
 add_compile_options(-Wall -pedantic -std=c++17)
 
@@ -22,11 +20,8 @@ target_sources(cpp-class-parser
 	src/utils.cpp
 )
 
-
 target_include_directories(cpp-class-parser PUBLIC "$ENV{PREFIX}/include")
 target_link_directories(cpp-class-parser PUBLIC "$ENV{PREFIX}/lib")
-
-#add_library(clangFrontend SHARED IMPORTED)
 
 
 target_link_libraries(cpp-class-parser PRIVATE
@@ -49,8 +44,6 @@ target_link_libraries(cpp-class-parser PRIVATE
   
 
 #########################
-
-#find_package(LLVM REQUIRED CONFIG)
 
 add_executable(parsertest test/parsertest.cpp)
 target_include_directories(parsertest PRIVATE "$ENV{PREFIX}/include" src/)
