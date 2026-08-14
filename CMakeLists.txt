@@ -42,6 +42,22 @@ target_link_libraries(cpp-class-parser PRIVATE
   clangFrontend
   clang-cpp)
   
+  
+install (
+  FILES src/ASTConsumer.h 
+        src/FrontendAction.h
+        src/Visitor.h 
+        src/ClassInformation.h 
+        src/CompilerDatabase.h
+        src/utils.h
+      DESTINATION include/
+)
+
+install(
+    FILES
+        ${CMAKE_BINARY_DIR}/libcpp-class-parser.so
+        DESTINATION lib/
+)
 
 #########################
 
